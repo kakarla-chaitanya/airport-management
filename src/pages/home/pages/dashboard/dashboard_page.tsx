@@ -1,4 +1,5 @@
 import DashboardCard from "./components/dashboard_card";
+import FlightStatusChart from "./components/flight_status_chart";
 import "./dashboard_page.css";
 import { MdCheckBox, MdSquare, MdAttachMoney, MdDashboard } from 'react-icons/md';
 
@@ -11,6 +12,7 @@ export default function DashboardPage(){
                 <DashboardCard title="Approved" value={36} icon={<MdCheckBox />} />
                 <DashboardCard title="Month total" value={25410} icon={<MdAttachMoney />} />
                 <DashboardCard title="Revenue" value={1352} icon={<MdDashboard />} />
+                <FlightStatusChart />
             </div>
         </div>
         

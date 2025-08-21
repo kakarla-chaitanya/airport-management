@@ -10,7 +10,7 @@ interface FlightCardProps {
   onDelete: () => void;
 }
 
-const FlightCard = ({ flight, onEdit, onDelete }: FlightCardProps) => {
+const FlightCard = ({ flight, onEdit, onDelete}: FlightCardProps) => {
   return (
     <div className="flight-card">
       <div className="flight-card-header">

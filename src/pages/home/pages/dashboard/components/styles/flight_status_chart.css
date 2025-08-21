@@ -1,0 +1,73 @@
+.chart-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1f2937;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.chart-header h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.chart-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.custom-dropdown {
+  background-color: #f5f6fa;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  min-width: 90px;
+  /* Appearance reset for consistent style */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  /* for dropdown arrow (optional, can add a custom arrow if needed) */
+}
+
+.custom-dropdown:focus {
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+}
+
+/* Scroll & max height on dropdown options — works in some browsers */
+.custom-dropdown option {
+  background-color: white;
+  color: #111827;
+  padding: 8px 12px;
+}
+
+/* Use size attribute on select for dropdown scroll */
+/* Unfortunately, native dropdown scroll styling is limited */
+/* Alternative: use a library if you want fully customized dropdown */
+/* Here, just restricting dropdown max height with native select size workaround */
+/* No direct CSS way to limit dropdown height on native select */
+
+/* Total flights styling */
+.total-flights {
+  font-weight: 600;
+  margin: 8px 0 16px 0;
+  font-size: 1rem;
+  color: #374151;
+}
