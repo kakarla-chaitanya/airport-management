@@ -1,0 +1,96 @@
+.home-page {
+  background-color: var(--dashboard-bg-color);
+  display: flex;
+  height: 100vh; /* Full screen height */
+  width: 100vw;
+  /* background-color: var(--background-light); */
+  overflow: hidden;
+}
+
+/* Main content area */
+.home-main {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease;
+}
+
+.home-flex{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.home-header{
+  /* color: var(--text-light);  */
+  background-color: white; 
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 20px;
+}
+.home-body{
+  padding: 20px;
+  align-content: flex-start;
+    height: 100vh;
+    width: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+.status-badge {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  text-transform: capitalize;
+  background-color: var(--primary-purple-light);
+  color: var(--primary-purple-dark);
+}
+
+/* Base button style */
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Edit button */
+.edit-btn {
+  color: var(--primary-purple-dark);
+  border: 1px solid var(--primary-purple-light);
+  background-color: rgba(94, 53, 177, 0.05);
+}
+
+.edit-btn:hover {
+  background-color: rgba(94, 53, 177, 0.1);
+}
+
+/* Delete button */
+.delete-btn {
+  color: #b00020;
+  border: 1px solid rgba(176, 0, 32, 0.15);
+  background-color: rgba(176, 0, 32, 0.05);
+}
+
+.delete-btn:hover {
+  background-color: rgba(176, 0, 32, 0.1);
+}
+
+/* Desktop: add margin to accommodate sidebar */
+@media (min-width: 769px) {
+  .home-main {
+    margin-left: 240px; /* Same width as sidebar */
+  }
+}
+@media (max-width:768px){
+  .home-main{
+    margin-top: 60px;
+  }
+}

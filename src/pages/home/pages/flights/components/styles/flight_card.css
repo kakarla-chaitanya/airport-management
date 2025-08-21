@@ -1,0 +1,68 @@
+.flight-card {
+  background-color: #fff;
+  border-left: 6px solid var(--primary-purple); /* Accent border on the left */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  width: 100%;
+  flex: 1 1 280px; /* Grow, shrink, base width */
+  min-width: 260px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.2s ease;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.flight-card:hover {
+  transform: translateY(-2px);
+}
+
+.flight-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flight-card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--primary-purple-dark);
+}
+
+
+
+/* Optional: status-specific badge colors */
+.status-arrived {
+  background-color: #e0f2f1;
+  color: #00796b;
+}
+
+.status-departed {
+  background-color: #ede7f6;
+  color: var(--primary-purple-dark);
+}
+
+.status-delayed {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-scheduled {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.flight-card-body div {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.flight-card-actions {
+  display: flex;
+  gap: 8px;
+}

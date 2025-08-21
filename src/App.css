@@ -1,0 +1,60 @@
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+*::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+:root {
+  --primary-purple: #5e35b1; /* main */
+  --primary-purple-dark: #4527a0;
+  --primary-purple-light: #d1c4e9;
+
+  --form-bg: rgba(128, 128, 128, 0.231);
+  --form-label: #1a1a1a;
+
+  --text-dark: #1a1a1a;
+  --text-light: #ffffff;
+  --background-light: #fdfaff;
+
+  --dashboard-bg-color:rgba(181, 181, 181, 0.151);
+
+  --button-color: #111111;
+  --button-hover: #000000;
+
+  --loader-color:black;
+
+  --sidebar-bg:black;
+  --sidebar-text: var(--text-light);
+  --sidebar-hover: var(--primary-purple);
+  --sidebar-active: var(--primary-purple-light);
+
+  /* z-index */
+  --loader-z-index:9998;
+  --sidebar-z-index:1100;
+  --sibebar-menu-z-index:1000;
+
+}
+body {
+  margin: 0;
+  padding: 0px ;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  position: relative;
+}
+
+.loader{  
+  background-color: rgba(128, 128, 128, 0.505);
+  overflow: hidden;
+  position: absolute;
+  z-index: var(--loader-z-index);
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,46 @@
+.baggage-card {
+  background-color: #fff;
+  border-left: 6px solid var(--primary-purple); /* Accent */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  
+  width: 100%;
+  flex: 1 1 280px; /* Grow, shrink, base width */
+  min-width: 260px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.2s ease;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.baggage-card:hover {
+  transform: translateY(-2px);
+}
+
+.baggage-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.baggage-card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--primary-purple-dark);
+}
+
+
+.baggage-card-body div {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.baggage-card-actions {
+  display: flex;
+  gap: 8px;
+}

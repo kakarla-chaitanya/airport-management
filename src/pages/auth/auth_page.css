@@ -1,0 +1,199 @@
+/* ===== auth-page layout ===== */
+.auth-page {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-light);
+  overflow: hidden;
+}
+
+/* ===== Left Banner Section ===== */
+.auth-banner {
+  flex: 1;
+  height: 100vh;
+  background: url('/src/assets/flight.avif') no-repeat center;
+  background-size: cover;
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  position: relative;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  overflow: hidden;
+}
+
+.auth-banner-content {
+  margin-top: auto;  /* Pushes content to bottom */
+  z-index: 1;
+  text-align: center;
+  position: relative;
+}
+
+.auth-banner h1 {
+  z-index: 1;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.auth-banner p {
+  font-size: 1rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Overlay */
+.auth-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(40, 0, 60, 0.4);
+  z-index: 0;
+  pointer-events: none;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+/* ===== Right Container (Form) ===== */
+.auth-container {
+  flex: 1;
+  max-height: 100vh;       /* Essential for internal scroll */
+  overflow-y: auto;
+  background-color: white;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+/* Hide scroll bar but keep scroll */
+.auth-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.auth-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ===== Auth Content Styling ===== */
+.auth-title {
+  font-size: 2rem;
+  color: var(--primary-purple-dark);
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Tight spacing between label and input */
+}
+
+.auth-form label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: var(--form-label);
+}
+
+.auth-form input {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: var(--form-bg);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.auth-form input:focus {
+  outline: 2px solid var(--primary-purple);
+  /* background-color: white; */
+}
+
+.auth-select {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: var(--form-bg);
+  font-size: 1rem;
+  appearance: none;
+  transition: all 0.3s ease;
+}
+
+.auth-select:focus {
+  outline: 2px solid var(--primary-purple);
+  background-color: white;
+}
+
+
+/* ===== Button Style ===== */
+.auth-button {
+  margin-top: 24px;
+  padding: 14px 0;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--button-color); /* Should be black or dark blue */
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-button:hover {
+  background-color: var(--button-hover);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Footer Links ===== */
+.auth-footer {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.auth-footer a {
+  color: var(--primary-purple);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Responsive for Mobile View ===== */
+@media (max-width: 768px) {
+  .auth-page {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .auth-banner {
+    height: 260px;
+    padding: 20px;
+    justify-content: flex-end;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+  }
+
+  .auth-container {
+    flex: unset;
+    max-height: unset;
+    overflow-y: visible;
+    padding: 30px 20px;
+    border-radius: 0;
+  }
+}

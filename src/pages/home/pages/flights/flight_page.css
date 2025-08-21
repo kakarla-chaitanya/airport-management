@@ -1,0 +1,9 @@
+.flights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    /* 12px row gap, 20px column gap */
+    align-items: flex-start;
+    /* justify-content: space-evenly; */
+   
+}
