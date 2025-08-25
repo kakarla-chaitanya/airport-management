@@ -4,8 +4,10 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/insert_admin.ts && ts-node src/index.ts",
+    "start": "ts-node src/insert_admin.ts && node build/index.js",
+    "watch": "tsc --watch",
     "dev": "ts-node src/insert_admin.ts && ts-node-dev src/index.ts",
     "admin": "ts-node src/insert_admin.ts"
   },
