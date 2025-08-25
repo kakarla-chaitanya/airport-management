@@ -1,8 +1,76 @@
 .dashboard {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard >.users {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal-width columns */
+  gap: 12px 20px;
+  width: 100%;
+}
+
+
+.dashboard >.users > .dashboard-card{
+  flex-grow: 1;
+}
+
+.dashboard > .delay{
+  box-sizing: border-box;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.dashboard > .delay >.baggage-pie-chart{
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard > .delay > .delay-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 4 equal-width columns */
+  gap: 12px 20px;
+  width: 50%;
+  flex: 0 0 50%;
+}
+
+.dashboard> .charts{
+  display: flex;
+  gap: 12px 20px;
   flex-wrap: wrap;
-  gap: 12px 20px; /* 12px row gap, 20px column gap */
-  align-items: flex-start;
-  /* justify-content: space-evenly; */
-  
+  flex: 1 1 auto;
+}
+
+.dashboard>.charts >.chart-wrapper {
+  flex: 1 1 auto;
+  min-width: 500px;
+}
+
+@media (max-width:1260px) {
+  .dashboard > .delay{
+    flex-direction: column;
+    padding: 0px;
+    padding-bottom: 20px;
+  }
+  .dashboard > .delay > .delay-grid{
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard >.users  {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  }
+}
+
+@media (max-width: 500px) {
+  /* .dashboard >.users {
+    grid-template-columns: 1fr; 
+  } */
+  .dashboard>.charts >.chart-wrapper{
+    min-width: 300px;
+  }
 }

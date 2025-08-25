@@ -1,0 +1,102 @@
+.custom-dropdown-container {
+  position: relative;
+  width: 90px;
+  user-select: none;
+  outline: none;
+}
+
+
+.custom-dropdown-selected {
+  background-color: #f5f6fa;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 35px;
+  border: 1.5px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.custom-dropdown-container.full-width {
+  width: 100%;
+  background-color: white;
+}
+.custom-dropdown-container.full-width .custom-dropdown-selected{
+  padding: 4px 12px;
+  background-color: white;
+  border: 1.5px solid var(--border-color, #ccc);
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+  /* box-sizing: border-box; */
+}
+
+.custom-dropdown-container.full-width .custom-dropdown-selected:focus{
+  outline: none;
+  border-color: var(--primary-purple-dark);
+}
+.custom-dropdown-selected:focus,
+.custom-dropdown-container:focus-within .custom-dropdown-selected {
+  border-color: rgba(99, 102, 241, 0.8);
+}
+
+.custom-dropdown-arrow {
+  margin-left: 8px;
+  font-size: 0.6rem;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Dropdown menu */
+.custom-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Scrollbar styles for webkit */
+.custom-dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+.custom-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 8px;
+}
+
+.custom-dropdown-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.custom-dropdown-option:hover {
+  background-color: #e0e7ff;
+}
+
+.custom-dropdown-option.selected {
+  background-color: #6366f1;
+  color: white;
+  font-weight: 600;
+}

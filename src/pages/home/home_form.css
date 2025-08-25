@@ -1,0 +1,104 @@
+.home-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #fff; /* white background */
+  padding: 24px 28px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  min-width: 480px;
+}
+
+.home-form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-form-row label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-primary, #333);
+  font-size: 0.9rem;
+}
+
+.home-form-input {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1.5px solid var(--border-color, #ccc);
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+
+/* .home-form-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-image:
+    url("data:image/svg+xml;charset=US-ASCII,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3e%3cpath fill='none' stroke='%237c3aed' stroke-width='2' d='M1 1l5 5 5-5'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+  padding-right: 36px; 
+  cursor: pointer;
+} */
+
+.home-form-input:focus{
+  outline: none;
+  border-color: var(--primary-purple-dark);
+  /* box-shadow: 0 0 5px var(--primary-purple-dark, #7c3aed); */
+}
+
+.home-form-actions {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.home-form-submit-btn,
+.home-form-cancel-btn {
+  flex: 1;
+  min-width: 140px;
+  padding: 12px 16px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.home-form-submit-btn {
+  background-color: var(--primary-purple-dark);
+  color: var(--text-light);
+  border: none;
+  /* box-shadow: 0 4px 8px rgb(124 58 237 / 0.4); */
+}
+
+.home-form-submit-btn:hover {
+  background-color: var(--primary-purple, #9333ea);
+  /* box-shadow: 0 6px 14px rgb(147 51 234 / 0.6); */
+}
+
+.home-form-cancel-btn {
+  color: #b00020;
+  border: 1px solid rgba(176, 0, 32, 0.15);
+  background-color: rgba(176, 0, 32, 0.05);
+}
+
+.home-form-cancel-btn:hover {
+  background-color: rgba(176, 0, 32, 0.1);
+}
+
+@media (max-width:720px) {
+  .home-form {
+    padding: 24px 15px;
+    width: calc(100% - 30px);
+    min-width: 0px;
+  }
+}

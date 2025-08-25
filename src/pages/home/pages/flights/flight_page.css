@@ -1,8 +1,16 @@
 .flights {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px 20px;
-    /* 12px row gap, 20px column gap */
-    align-items: flex-start;
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); ; /* 4 equal-width columns */
+  gap: 12px 20px;
+  align-items: start;
+}
+
+.flights .no-flights{
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight:500;
+  /* min-height: 85vh;      */
 }

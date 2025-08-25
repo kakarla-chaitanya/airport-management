@@ -18,13 +18,13 @@
   flex-direction: column;
   padding: 40px;
   position: relative;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
   overflow: hidden;
 }
 
 .auth-banner-content {
-  margin-top: auto;  /* Pushes content to bottom */
+  margin-top: auto; 
   z-index: 1;
   text-align: center;
   position: relative;
@@ -179,14 +179,16 @@
     flex-direction: column;
     height: auto;
     overflow-y: auto;
+    min-height: 100vh;
+
   }
 
   .auth-banner {
     height: 260px;
     padding: 20px;
     justify-content: flex-end;
-    border-bottom-left-radius: 24px;
-    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
   }
 
   .auth-container {

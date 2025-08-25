@@ -1,10 +1,12 @@
 .home-page {
   background-color: var(--dashboard-bg-color);
   display: flex;
-  height: 100vh; /* Full screen height */
+  height: 100vh;
+  /* Full screen height */
   width: 100vw;
   /* background-color: var(--background-light); */
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Main content area */
@@ -13,28 +15,37 @@
   width: 100%;
   overflow-y: auto;
   transition: margin-left 0.3s ease;
+  box-sizing: border-box;
 }
 
-.home-flex{
+.home-flex {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
-.home-header{
-  /* color: var(--text-light);  */
-  background-color: white; 
+.home-header {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  width: 100%;
+  background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   font-size: 1.3rem;
   font-weight: bold;
   padding: 20px;
+  box-sizing: border-box;
 }
-.home-body{
-  padding: 20px;
+
+.home-body {
+  flex: 1;
+  padding: 0px 20px;
+  padding-top: 90px;
   align-content: flex-start;
-    height: 100vh;
-    width: calc(100% - 40px);
-    overflow-y: auto;
+  width: calc(100% - 40px);
+  box-sizing: border-box;
 }
 
 .status-badge {
@@ -86,11 +97,13 @@
 /* Desktop: add margin to accommodate sidebar */
 @media (min-width: 769px) {
   .home-main {
-    margin-left: 240px; /* Same width as sidebar */
+    margin-left: 240px;
+    /* Same width as sidebar */
   }
 }
-@media (max-width:768px){
-  .home-main{
-    margin-top: 60px;
+
+@media (max-width:768px) {
+  .home-header {
+    padding-left: 70px;
   }
 }

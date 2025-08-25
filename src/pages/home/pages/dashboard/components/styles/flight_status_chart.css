@@ -1,7 +1,6 @@
 .chart-container {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
+  width: calc(100%-40px);
+  padding: 16px 20px; /* Optional vertical spacing */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #1f2937;
   background-color: #fff;
@@ -9,11 +8,12 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+
 .chart-header {
   display: flex;
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
 }
 
 .chart-header h3 {
@@ -25,49 +25,115 @@
 .chart-controls {
   display: flex;
   gap: 12px;
+  margin-top: 8px; /* extra vertical spacing */
 }
 
-.custom-dropdown {
+.chart-loader{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;;
+}
+
+.recharts-wrapper {
+  outline: none;
+}
+.recharts-wrapper:focus{
+    outline: none !important;
+}
+
+
+/* Custom Dropdown styles */
+.custom-dropdown-container {
+  position: relative;
+  width: 90px;
+  user-select: none;
+  outline: none;
+}
+
+.custom-dropdown-selected {
   background-color: #f5f6fa;
-  border: none;
-  padding: 6px 12px;
   border-radius: 8px;
+  padding: 6px 12px;
   font-size: 14px;
   font-weight: 500;
   color: #1f2937;
   cursor: pointer;
-  outline: none;
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  min-width: 90px;
-  /* Appearance reset for consistent style */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  position: relative;
-  /* for dropdown arrow (optional, can add a custom arrow if needed) */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 35px;
+  border: 1.5px solid transparent;
+  transition: border-color 0.2s ease;
 }
 
-.custom-dropdown:focus {
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+.custom-dropdown-selected:focus,
+.custom-dropdown-container:focus-within .custom-dropdown-selected {
+  border-color: rgba(99, 102, 241, 0.8);
 }
 
-/* Scroll & max height on dropdown options — works in some browsers */
-.custom-dropdown option {
+.custom-dropdown-arrow {
+  margin-left: 8px;
+  font-size: 0.6rem;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Dropdown menu */
+.custom-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 250px;
+  overflow-y: auto;
   background-color: white;
-  color: #111827;
-  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-/* Use size attribute on select for dropdown scroll */
-/* Unfortunately, native dropdown scroll styling is limited */
-/* Alternative: use a library if you want fully customized dropdown */
-/* Here, just restricting dropdown max height with native select size workaround */
-/* No direct CSS way to limit dropdown height on native select */
+/* Scrollbar styles for webkit */
+.custom-dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
 
-/* Total flights styling */
+.custom-dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+.custom-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 8px;
+}
+
+.custom-dropdown-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.custom-dropdown-option:hover {
+  background-color: #e0e7ff;
+}
+
+.custom-dropdown-option.selected {
+  background-color: #6366f1;
+  color: white;
+  font-weight: 600;
+}
+
+/* Total flights text */
 .total-flights {
   font-weight: 600;
-  margin: 8px 0 16px 0;
+  margin: 0px 0 16px 0;
   font-size: 1rem;
   color: #374151;
 }

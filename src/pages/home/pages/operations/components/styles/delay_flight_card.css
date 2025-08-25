@@ -1,0 +1,31 @@
+.delay-flight-card {
+  max-width: 520px;
+}
+
+.delay-flight-card .delay-no-flights{
+  display: flex;
+  width: 100%;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.delay-form-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary, #333);
+}
+
+.delay-reason-textarea {
+  resize: vertical;
+  min-height: 100px;
+  max-height: 500px;
+}
+
+.home-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,4 +1,3 @@
-
 import './auth_page.css';
 import AuthBanner from './components/auth_banner';
 import { Outlet } from 'react-router-dom';

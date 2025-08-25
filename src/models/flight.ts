@@ -1,3 +1,5 @@
+import type { FlightStatus } from "./flight_status";
+
 export interface Flight {
     _id: string;
     flightNo: string;
@@ -7,6 +9,6 @@ export interface Flight {
     gate?: string;
     scheduledArr?: Date;
     scheduledDep?: Date;
-    status: string;
+    status: FlightStatus;
     createdBy: string;
 }
