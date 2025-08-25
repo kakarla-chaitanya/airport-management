@@ -2,6 +2,7 @@ import DataConsistencyError from "../Errors/data_consistency_error";
 import EntityNotFoundError from "../Errors/entity_not_found_error";
 import Baggage from "../models/baggage/baggage_model";
 import { BaggageStatus } from "../models/baggage_status";
+import Flight from "../models/flight/flight_model";
 
 export async function addNewBaggage(params:{
     tagId:string;
@@ -15,6 +16,12 @@ export async function addNewBaggage(params:{
     if (existingBaggage){
         throw new DataConsistencyError("Already a Baggage is existing with this tag-id");
     }
+
+    const flight = await Flight.findOne({flightNo:params.flightId});
+    if (!flight) {
+        throw new EntityNotFoundError("Flight not found for the provided flight ID.");
+    }
+
     const newBaggage=await Baggage.create({
         ...params
     });

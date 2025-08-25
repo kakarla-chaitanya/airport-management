@@ -3,6 +3,7 @@ import DataConsistencyError from "../Errors/data_consistency_error";
 import EntityNotFoundError from "../Errors/entity_not_found_error";
 import User from "../models/user/user_model";
 import { Roles } from "../models/roles";
+import { logoutSession } from "../utils/session_management";
 
 export async function register(name:string,role:Roles,email:string,password:string) {
     const existingUser=await User.findOne({email});
@@ -29,4 +30,8 @@ export async function login(email:string,password:string) {
         throw new DataConsistencyError("Password didn't match");
     }
     return user;
+}
+
+export async function logout(id:string,deviceId:string) {
+    await logoutSession(id,deviceId);
 }

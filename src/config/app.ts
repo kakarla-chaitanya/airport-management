@@ -7,16 +7,24 @@ import authRoute from "../routes/auth_route";
 import flightRoute from "../routes/flight_route";
 import baggageRoute from "../routes/baggage_route";
 import opsRoute from "../routes/ops_route";
+import dashboardRoute from "../routes/dashboard_route";
 import rateLimiterMiddleware from "../middleware/rate_limiter_middleware";
+
+import dotenv from "dotenv";
+dotenv.config();
 
 const app=express();
 
 app.set("trust proxy", true);
 
 app.use(morgan('dev'));
-app.use(cors({
-    origin:"*",
-}));
+
+const corsOptions = {
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 app.use(cookieParser());
@@ -30,6 +38,7 @@ app.use("/auth",authRoute);
 app.use("/flight",flightRoute);
 app.use("/baggage",baggageRoute);
 app.use("/ops",opsRoute);
+app.use("/dashboard",dashboardRoute);
 
 
 app.use((req, res) => {
@@ -40,6 +49,7 @@ app.use((req, res) => {
 
 //error handling
 app.use((err:GlobalError,req:Request,res:Response,next:NextFunction)=>{
+    console.log("In Gloabl error hanfdling")
     console.log(err);
     const errorResponse:{
         name: string;

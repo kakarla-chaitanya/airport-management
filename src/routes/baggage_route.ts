@@ -86,8 +86,9 @@ router.put(
     "/",
     checkRoles([Roles.admin,Roles.airlineStaff,Roles.baggageStaff]),
     asyncHandler(async (req,res)=>{
-        const {id}=req.params;
-        if (!id){
+
+        const id= req.query.id;
+        if (!id ||typeof id !== "string" || !id.trim()){
             throw new InvalidRequestBodyError("Invalid id");
         }
 
@@ -125,12 +126,12 @@ router.put(
 );
 
 router.delete(
-    "/:id",
-    checkRoles([Roles.admin]),
+    "/",
+    checkRoles([Roles.admin,Roles.airlineStaff,Roles.baggageStaff]),
     asyncHandler(async (req,res)=>{
 
-        const {id}=req.params;
-        if (!id){
+        const id= req.query.id;
+        if (!id ||typeof id !== "string" || !id.trim()){
             throw new InvalidRequestBodyError("Invalid id");
         }
 

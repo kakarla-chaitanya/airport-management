@@ -7,7 +7,7 @@ const FlightSchema=new Schema<IFlightSchema>({
     _id:{
         type:String,
         required:true,
-        default:uuidv4(),
+        default:uuidv4,
         trim:true
     },
     flightNo:{

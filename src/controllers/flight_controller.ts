@@ -4,6 +4,8 @@ import IUserSchema from "../models/user/i_user_schema";
 import Flight from "../models/flight/flight_model";
 import DataConsistencyError from "../Errors/data_consistency_error";
 import EntityNotFoundError from "../Errors/entity_not_found_error";
+import Baggage from "../models/baggage/baggage_model";
+import { deleteKey } from "../utils/cache";
 
 export async function addNewFlight(
     params:{
@@ -69,6 +71,10 @@ export async function deleteExistingFlight(_id:string) {
     );
     if (!flight){
         throw new EntityNotFoundError("No flight exists with this id");
+    }
+    const baggages=await Baggage.deleteMany({flightId:flight.flightNo});
+    if (baggages.deletedCount>0){
+        deleteKey('baggages');
     }
     return flight;
 }

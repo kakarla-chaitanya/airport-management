@@ -18,7 +18,7 @@ export default async function listenToTopics() {
             else if(topic==="baggage"){
                 handleBaggageEvents(message);
             }else if (topic==="ops"){
-
+                handleOpsEvents(message);
             }
         }
     });
@@ -43,13 +43,14 @@ async function handleFlightEvents(message:KafkaMessage) {
         return ;
     }
     let data=JSON.parse(value);
+    // console.log("flight event",data);
     if (data.type==="created"){
         io.emit("flight-event",`New Flight ${data.flightNo} is added.`);
     }else if (data.type==="updated"){
-        io.emit('flight-event',`Flight ${data.flightNo} updated`);
+        io.emit('flight-event',`Flight ${data._doc.flightNo} updated`);
     }
     else if (data.type==="deleted"){
-        io.emit("flight-event",`Flight ${data.flightNo} deleted`);
+        io.emit("flight-event",`Flight ${data._doc.flightNo} deleted`);
     }
 }
 
@@ -62,10 +63,10 @@ async function handleBaggageEvents(message:KafkaMessage) {
     if (data.type==="created"){
         io.emit("baggage-event",`New Baggage ${data.tagId} is added.`);
     }else if (data.type==="updated"){
-        io.emit('baggage-event',`Baggage ${data.tagId} updated`);
+        io.emit('baggage-event',`Baggage ${data._doc.tagId} updated`);
     }
     else if (data.type==="deleted"){
-        io.emit("baggage-event",`Baggage ${data.tagId} deleted`);
+        io.emit("baggage-event",`Baggage ${data._doc.tagId} deleted`);
     }
 }
 
@@ -76,6 +77,6 @@ async function handleOpsEvents(message:KafkaMessage) {
     }
     let data=JSON.parse(value);
     if (data.type==="delay-flight"){
-        io.emit("critical",`Flight ${data.flightNo} is delayed.\nDue to ${data.message}`);
+        io.emit("ops-event",`Flight ${data._doc.flightNo} is delayed.\nDue to ${data.message}`);
     }
 }

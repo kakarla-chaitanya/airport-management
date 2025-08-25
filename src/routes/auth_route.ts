@@ -2,7 +2,7 @@ import express from "express";
 import asyncHandler from "../utils/async_handler";
 import { body, validationResult } from "express-validator";
 import InvalidRequestBodyError from "../Errors/invalid_request_body_error";
-import { login, register } from "../controllers/auth_controllers";
+import { login, logout, register } from "../controllers/auth_controllers";
 import generateToken from "../utils/generate_token";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
@@ -11,13 +11,30 @@ import { checkRoles } from "../middleware/check_roles";
 import { Roles } from "../models/roles";
 import InvalidRequestError from "../Errors/invalid_request_error";
 import { producer } from "../config/kafka";
+import AuthenticationError from "../Errors/authentication_error";
+import redisClient from "../config/redis";
+import DataConsistencyError from "../Errors/data_consistency_error";
 
 dotenv.config();
 const router=express.Router();
 
+router.get(
+    "/verify",
+    validateToken,
+    (asyncHandler(async (req,res)=>{
+        if (!req.user){
+            throw new AuthenticationError("Invalid User");
+        }
+        const {jti,...user}=req.user;
+        return res.status(200).send(user);
+    }))
+);
+
 router.post("/register",validateToken,checkRoles([Roles.admin]),[
     body("name")
-        .notEmpty().withMessage("Empty name"),
+        .notEmpty().withMessage("Empty name")
+        .bail()
+        .isLength({max:50}).withMessage("Name can be of maximum of 50 characters"),
     body("role")
         .notEmpty().withMessage("Invalid Role"),
     body("email")
@@ -44,8 +61,20 @@ router.post("/register",validateToken,checkRoles([Roles.admin]),[
     }
     const roleEnum=role as Roles;
 
+    if (role===Roles.admin){
+        throw new DataConsistencyError("You cannot add admin");
+    }
+
     let hashPassword=await bcrypt.hash(password,10);
     const user=await register(name,roleEnum,email,hashPassword);
+
+    if (user.role===Roles.airlineStaff){
+        await redisClient.incr("dashboard-airline-staff");
+    }else if (user.role===Roles.baggageStaff){
+        await redisClient.incr("dashboard-baggage-staff");
+    }else{
+        await redisClient.incr("dashboard-end-users");
+    }
 
     await producer.send({
         topic:"auth",
@@ -67,7 +96,9 @@ router.post("/register",validateToken,checkRoles([Roles.admin]),[
 
 router.post("/register-user",[
     body("name")
-        .notEmpty().withMessage("Empty name"),
+        .notEmpty().withMessage("Empty name")
+        .bail()
+        .isLength({max:50}).withMessage("Name can be of maximum of 50 characters"),
     body("email")
         .notEmpty().withMessage('Empty email')
         .bail()
@@ -90,6 +121,8 @@ router.post("/register-user",[
     let hashPassword=await bcrypt.hash(password,10);
     const user=await register(name,Roles.user,email,hashPassword);
 
+    await redisClient.incr("dashboard-end-users");
+
      await producer.send({
         topic:"auth",
         messages:[
@@ -107,11 +140,11 @@ router.post("/register-user",[
     return res.status(200).json(user);
 }));
 
-router.get("/login",[
+router.post("/login",[
     body("email")
         .notEmpty().withMessage("Empty email")
         .bail()
-        .isEmail().withMessage("InValid email"),
+        .isEmail().withMessage("Invalid email"),
     body("password")
         .notEmpty().withMessage("Empty Password")
 ],asyncHandler( async (req,res)=>{
@@ -142,6 +175,19 @@ router.get("/login",[
         email:user.email,
         role:user.role,
     });
+}));
+
+router.get("/logout",validateToken,asyncHandler(async (req,res)=>{
+      await logout(
+        req.user?._id?req.user._id:"",
+        typeof req.headers["x-device-id"]==="string"?req.headers["x-device-id"]:""
+    );
+      res.clearCookie("token", {
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+    res.status(200).send("Logged out successfully");
 }));
 
 export default router;

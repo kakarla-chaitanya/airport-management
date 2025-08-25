@@ -5,12 +5,22 @@ import { checkRoles } from "../middleware/check_roles";
 import { Roles } from "../models/roles";
 import { body } from "express-validator";
 import asyncHandler from "../utils/async_handler";
-import { delayFlight } from "../controllers/ops_controller";
+import { delayFlight, getAllFlightsExceptDelayed } from "../controllers/ops_controller";
 import { producer } from "../config/kafka";
+import { deleteKey } from "../utils/cache";
 
 const router=express.Router();
 
 router.use(validateToken);
+
+router.get(
+    "/",
+    checkRoles([Roles.admin,Roles.airlineStaff]),
+    asyncHandler(async (req,res)=>{
+        const flights=await getAllFlightsExceptDelayed();
+        return res.status(200).send(flights);
+    })
+)
 
 router.post(
     "/delay-flight",
@@ -23,8 +33,12 @@ router.post(
             .notEmpty().withMessage("Empty message"),
     ],
     asyncHandler(async(req,res)=>{
+
         const {flightNo,message}=req.body;
         const flight=await delayFlight(flightNo);
+
+        await deleteKey("flights");
+        
         await producer.send({
             topic:"ops",
             messages:[
@@ -37,8 +51,10 @@ router.post(
                 })
             }
         ]
-        })
+        });
+        return res.status(200).send("Delayed successfully");
     })
+    
 );
 
 export default router;

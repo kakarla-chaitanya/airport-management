@@ -8,7 +8,7 @@ const UserSchema=new Schema<IUserSchema>({
     _id:{
         type:String,
         required:true,
-        default:uuidv4(),
+        default:uuidv4,
         trim:true,
     },
     name:{

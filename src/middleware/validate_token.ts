@@ -33,7 +33,7 @@ export default async function validateToken(req:Request,res:Response,next:NextFu
             throw new AuthenticationError("Invalid Token Payload");
         }
 
-        if (token.deviceId!==req.headers["x-device-id"]){
+        if (decoded.deviceId!==req.headers["x-device-id"]){
             throw new DataConsistencyError("Invalid device-id");
         }
 
