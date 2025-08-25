@@ -6,8 +6,9 @@ import { Roles } from "../models/roles";
 import { body } from "express-validator";
 import asyncHandler from "../utils/async_handler";
 import { delayFlight, getAllFlightsExceptDelayed } from "../controllers/ops_controller";
-import { producer } from "../config/kafka";
+// import { producer } from "../config/kafka";
 import { deleteKey } from "../utils/cache";
+import { io } from "../config/socket";
 
 const router=express.Router();
 
@@ -38,20 +39,22 @@ router.post(
         const flight=await delayFlight(flightNo);
 
         await deleteKey("flights");
+
+        io.emit("ops-event",`Flight ${flightNo} is delayed.\nDue to ${message}`);
         
-        await producer.send({
-            topic:"ops",
-            messages:[
-            {
-                key:flight._id,
-                value:JSON.stringify({
-                    type:"delay-flight",
-                    message,
-                    ...flight,
-                })
-            }
-        ]
-        });
+        // await producer.send({
+        //     topic:"ops",
+        //     messages:[
+        //     {
+        //         key:flight._id,
+        //         value:JSON.stringify({
+        //             type:"delay-flight",
+        //             message,
+        //             ...flight,
+        //         })
+        //     }
+        // ]
+        // });
         return res.status(200).send("Delayed successfully");
     })
     

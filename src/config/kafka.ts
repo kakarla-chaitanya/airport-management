@@ -1,6 +1,6 @@
 import { Kafka, Partitioners } from "kafkajs";
 import dotenv from "dotenv";
-import listenToTopics from "../kafka/consumer_listener";
+// import listenToTopics from "../kafka/consumer_listener";
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ export async function connectKafka() {
     await consumer.connect();
     isConsumerConnected = true;
     console.log("Consumer connected");
-    await listenToTopics();
+    // await listenToTopics();
     
   } catch (e) {
     console.error("Kafka connection error:", e);
@@ -54,4 +54,4 @@ export async function disconnectKafka() {
   }
 }
 
-export { producer, consumer };
+// export { producer, consumer };

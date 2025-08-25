@@ -10,10 +10,11 @@ import validateToken from "../middleware/validate_token";
 import { checkRoles } from "../middleware/check_roles";
 import { Roles } from "../models/roles";
 import InvalidRequestError from "../Errors/invalid_request_error";
-import { producer } from "../config/kafka";
+// import { producer } from "../config/kafka";
 import AuthenticationError from "../Errors/authentication_error";
 import redisClient from "../config/redis";
 import DataConsistencyError from "../Errors/data_consistency_error";
+import { io } from "../config/socket";
 
 dotenv.config();
 const router=express.Router();
@@ -76,20 +77,22 @@ router.post("/register",validateToken,checkRoles([Roles.admin]),[
         await redisClient.incr("dashboard-end-users");
     }
 
-    await producer.send({
-        topic:"auth",
-        messages:[
-            {
-                key:user.email,
-                value:JSON.stringify({
-                    type:"register",
-                    email:user.email,
-                    name:user.name,
-                    role:user.role,
-                })
-            }
-        ]
-    });
+    io.emit("auth-event",`New ${user.role} is added.`);
+
+    // await producer.send({
+    //     topic:"auth",
+    //     messages:[
+    //         {
+    //             key:user.email,
+    //             value:JSON.stringify({
+    //                 type:"register",
+    //                 email:user.email,
+    //                 name:user.name,
+    //                 role:user.role,
+    //             })
+    //         }
+    //     ]
+    // });
 
     return res.status(200).json(user);
 }));
@@ -123,19 +126,21 @@ router.post("/register-user",[
 
     await redisClient.incr("dashboard-end-users");
 
-     await producer.send({
-        topic:"auth",
-        messages:[
-            {
-                key:user.email,
-                value:JSON.stringify({
-                    type:"register-user",
-                    email:user.email,
-                    name:user.name,
-                })
-            }
-        ]
-    });
+    io.emit('auth-event',`New user - ${user.name} registered`);
+
+    //  await producer.send({
+    //     topic:"auth",
+    //     messages:[
+    //         {
+    //             key:user.email,
+    //             value:JSON.stringify({
+    //                 type:"register-user",
+    //                 email:user.email,
+    //                 name:user.name,
+    //             })
+    //         }
+    //     ]
+    // });
 
     return res.status(200).json(user);
 }));

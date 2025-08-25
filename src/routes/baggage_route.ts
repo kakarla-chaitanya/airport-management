@@ -10,7 +10,8 @@ import AuthenticationError from "../Errors/authentication_error";
 import { addNewBaggage, deleteExistingBaggage, getAllBaggage, updateExistingBaggage } from "../controllers/baggage_controllers";
 import { deleteKey, getOrSetCache } from "../utils/cache";
 import IBaggageSchema from "../models/baggage/i_baggage_schema";
-import { producer } from "../config/kafka";
+import { io } from "../config/socket";
+// import { producer } from "../config/kafka";
 
 const router=express.Router();
 
@@ -65,18 +66,20 @@ router.post(
 
         await deleteKey("baggages");
 
-        await producer.send({
-            topic:"baggage",
-            messages:[
-                {
-                    key:baggage._id,
-                    value:JSON.stringify({
-                        type:"created",
-                        ...baggage
-                    })
-                }
-            ]
-        });
+        io.emit("baggage-event",`New Baggage ${baggage.tagId} is added.`);
+
+        // await producer.send({
+        //     topic:"baggage",
+        //     messages:[
+        //         {
+        //             key:baggage._id,
+        //             value:JSON.stringify({
+        //                 type:"created",
+        //                 ...baggage
+        //             })
+        //         }
+        //     ]
+        // });
 
         return res.status(200).json(baggage);
     })
@@ -108,18 +111,20 @@ router.put(
 
         await deleteKey("baggages");
 
-        await producer.send({
-            topic:"baggage",
-            messages:[
-                {
-                    key:baggage._id,
-                    value:JSON.stringify({
-                        type:"updated",
-                        ...baggage
-                    })
-                }
-            ]
-        });
+        io.emit('baggage-event',`Baggage ${baggage.tagId} updated`);
+
+        // await producer.send({
+        //     topic:"baggage",
+        //     messages:[
+        //         {
+        //             key:baggage._id,
+        //             value:JSON.stringify({
+        //                 type:"updated",
+        //                 ...baggage
+        //             })
+        //         }
+        //     ]
+        // });
 
         return res.status(200).json(baggage);
     })
@@ -139,18 +144,20 @@ router.delete(
 
         await deleteKey("baggages");
 
-        await producer.send({
-            topic:"baggage",
-            messages:[
-                {
-                    key:baggage._id,
-                    value:JSON.stringify({
-                        type:"deleted",
-                        ...baggage
-                    })
-                }
-            ]
-        });
+        io.emit("baggage-event",`Baggage ${baggage.tagId} deleted`);
+
+        // await producer.send({
+        //     topic:"baggage",
+        //     messages:[
+        //         {
+        //             key:baggage._id,
+        //             value:JSON.stringify({
+        //                 type:"deleted",
+        //                 ...baggage
+        //             })
+        //         }
+        //     ]
+        // });
 
         return res.status(200).json(baggage);
     })

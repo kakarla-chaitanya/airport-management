@@ -3,7 +3,7 @@ dotenv.config();
 
 import "./config/redis";
 import { connectDB, disconnectDB } from "./config/db";
-import { connectKafka, disconnectKafka } from "./config/kafka";
+// import { connectKafka, disconnectKafka } from "./config/kafka";
 import server from "./config/socket";
 
 
@@ -15,7 +15,7 @@ import server from "./config/socket";
   }
 
   await connectDB();
-  await connectKafka();
+  // await connectKafka();
 
   server.listen(Number(port),()=>{
       console.log(`API running on port :- ${port}`);
@@ -26,7 +26,7 @@ import server from "./config/socket";
 async function shutDown() {
     try{
         await disconnectDB();
-        await disconnectKafka();
+        // await disconnectKafka();
     }catch(e){
         console.log(e);
     }

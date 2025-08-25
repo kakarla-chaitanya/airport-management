@@ -10,7 +10,8 @@ import { addNewFlight, deleteExistingFlight, getAllFlights, updateExistingFlight
 import AuthenticationError from "../Errors/authentication_error";
 import { deleteKey, getOrSetCache } from "../utils/cache";
 import IFlightSchema from "../models/flight/i_flight_schema";
-import { producer } from "../config/kafka";
+import { io } from "../config/socket";
+// import { producer } from "../config/kafka";
 
 const router=express.Router();
 
@@ -59,18 +60,20 @@ router.post("/",checkRoles([Roles.admin,Roles.airlineStaff]),[
 
     await deleteKey("flights");
 
-    await producer.send({
-        topic:"flight",
-        messages:[
-            {
-                key:flight._id,
-                value:JSON.stringify({
-                    type:"created",
-                    ...flight
-                })
-            }
-        ]
-    });
+    io.emit("flight-event",`New Flight ${flight.flightNo} is added.`);
+
+    // await producer.send({
+    //     topic:"flight",
+    //     messages:[
+    //         {
+    //             key:flight._id,
+    //             value:JSON.stringify({
+    //                 type:"created",
+    //                 ...flight
+    //             })
+    //         }
+    //     ]
+    // });
 
     return res.status(200).json(flight);
 }));
@@ -118,18 +121,20 @@ router.put(
 
         await deleteKey("flights");
 
-        await producer.send({
-            topic:"flight",
-            messages:[
-                {
-                    key:flight._id,
-                    value:JSON.stringify({
-                        type:"updated",
-                        ...flight
-                    })
-                }
-            ]
-        });
+        io.emit('flight-event',`Flight ${flight.flightNo} updated`);
+
+        // await producer.send({
+        //     topic:"flight",
+        //     messages:[
+        //         {
+        //             key:flight._id,
+        //             value:JSON.stringify({
+        //                 type:"updated",
+        //                 ...flight
+        //             })
+        //         }
+        //     ]
+        // });
 
         return res.status(200).json(flight);
     })
@@ -144,23 +149,25 @@ router.delete(
         if (!id ||typeof id !== "string" || !id.trim()){
             throw new InvalidRequestBodyError("Invalid id");
         }
-        
+
         const flight=await deleteExistingFlight(id);
 
         await deleteKey("flights");
 
-        await producer.send({
-            topic:"flight",
-            messages:[
-                {
-                    key:flight._id,
-                    value:JSON.stringify({
-                        type:"deleted",
-                        ...flight
-                    })
-                }
-            ]
-        });
+        io.emit("flight-event",`Flight ${flight.flightNo} deleted`);
+
+        // await producer.send({
+        //     topic:"flight",
+        //     messages:[
+        //         {
+        //             key:flight._id,
+        //             value:JSON.stringify({
+        //                 type:"deleted",
+        //                 ...flight
+        //             })
+        //         }
+        //     ]
+        // });
 
         return res.status(200).json(flight);
     })
