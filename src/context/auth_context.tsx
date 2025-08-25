@@ -34,6 +34,9 @@ export function AuthContextProvider({children}:{children:React.ReactNode}){
         if(authChecked){
             listenToSocket(addNewMessage);
         }
+        else{
+            disconnectSocket();
+        }
         return ()=>{
             disconnectSocket();
         }
